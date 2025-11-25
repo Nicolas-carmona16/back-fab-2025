@@ -1,4 +1,4 @@
-import { Prisma } from "../../generated/prisma"
+import { Prisma } from "@prisma/client"
 import { prisma } from "../../config/prisma"
 import { buildPage, type Page } from "../../utils/pagination"
 import type { UserWithRelations } from "../../types/context"

@@ -1,5 +1,4 @@
-import { Prisma } from "../../generated/prisma"
-import type { Rol, Departamento, Ciudad } from "../../generated/prisma"
+import { Prisma, type Rol, type Departamento, type Ciudad } from "@prisma/client"
 import { prisma } from "../../config/prisma"
 import { buildPage, type Page } from "../../utils/pagination"
 

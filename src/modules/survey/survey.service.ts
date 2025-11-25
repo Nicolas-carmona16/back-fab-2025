@@ -1,6 +1,6 @@
 import { prisma } from "../../config/prisma"
 import { buildPage, type Page } from "../../utils/pagination"
-import type { Survey, User } from "../../generated/prisma"
+import type { Survey, User } from "@prisma/client"
 
 export interface SurveyInput {
   rating: number

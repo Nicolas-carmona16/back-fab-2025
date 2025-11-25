@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from "../generated/prisma"
+import { PrismaClient } from "@prisma/client"
 
-export const prisma = new PrismaClient({} as Prisma.PrismaClientOptions)
+export const prisma = new PrismaClient()
 

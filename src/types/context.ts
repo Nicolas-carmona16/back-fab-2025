@@ -1,4 +1,4 @@
-import type { PrismaClient, User, Rol, Departamento, Ciudad } from "../generated/prisma"
+import type { PrismaClient, User, Rol, Departamento, Ciudad } from "@prisma/client"
 
 export interface GraphQLContext {
   prisma: PrismaClient

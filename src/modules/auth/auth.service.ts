@@ -1,4 +1,3 @@
-import { Prisma } from "../../generated/prisma"
 import { prisma } from "../../config/prisma"
 import { hashPassword, verifyPassword } from "../../auth/password"
 import { ensureCiudad, ensureDepartamento, ensureRol } from "../catalog/catalog.service"
