@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SurveyStatus {
+  PENDING
+  SUBMITTED
+  SKIPPED
+}
+
+model User {
+  id               String        @id @default(uuid())
+  nombre           String
+  correo           String        @unique
+  telefono         String
+  fechaRegistro    DateTime      @default(now())
+  detalleDireccion String
+  ciudadId         String
+  departamentoId   String
+  rolId            String
+  passwordHash     String
+  ciudad           Ciudad        @relation(fields: [ciudadId], references: [id])
+  departamento     Departamento  @relation(fields: [departamentoId], references: [id])
+  rol              Rol           @relation(fields: [rolId], references: [id])
+  surveys          Survey[]
+  refreshTokens    RefreshToken[]
+}
+
+model Rol {
+  id        String @id @default(uuid())
+  nombreRol String @unique
+  usuarios  User[]
+}
+
+model Departamento {
+  id                 String   @id @default(uuid())
+  nombreDepartamento String   @unique
+  ciudades           Ciudad[]
+  usuarios           User[]
+}
+
+model Ciudad {
+  id              String       @id @default(uuid())
+  nombreCiudad    String
+  departamentoId  String
+  departamento    Departamento @relation(fields: [departamentoId], references: [id])
+  usuarios        User[]
+
+  @@unique([nombreCiudad, departamentoId])
+}
+
+model Survey {
+  id        String       @id @default(uuid())
+  userId    String
+  rating    Int
+  comment   String?
+  status    SurveyStatus
+  createdAt DateTime     @default(now())
+  user      User         @relation(fields: [userId], references: [id])
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  revokedAt DateTime?
+  user      User     @relation(fields: [userId], references: [id])
+}
